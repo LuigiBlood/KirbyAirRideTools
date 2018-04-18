@@ -31,6 +31,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportCollisionOBJToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportPartitionOBJToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.exportCollisionDAEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +50,10 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportCollisionOBJToolStripMenuItem});
+            this.exportCollisionOBJToolStripMenuItem,
+            this.exportPartitionOBJToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.exportCollisionDAEToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -55,9 +61,28 @@
             // exportCollisionOBJToolStripMenuItem
             // 
             this.exportCollisionOBJToolStripMenuItem.Name = "exportCollisionOBJToolStripMenuItem";
-            this.exportCollisionOBJToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.exportCollisionOBJToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.exportCollisionOBJToolStripMenuItem.Text = "Export Collision OBJ";
             this.exportCollisionOBJToolStripMenuItem.Click += new System.EventHandler(this.exportCollisionOBJToolStripMenuItem_Click);
+            // 
+            // exportPartitionOBJToolStripMenuItem
+            // 
+            this.exportPartitionOBJToolStripMenuItem.Name = "exportPartitionOBJToolStripMenuItem";
+            this.exportPartitionOBJToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.exportPartitionOBJToolStripMenuItem.Text = "Export Partition OBJ";
+            this.exportPartitionOBJToolStripMenuItem.Click += new System.EventHandler(this.exportPartitionOBJToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(178, 6);
+            // 
+            // exportCollisionDAEToolStripMenuItem
+            // 
+            this.exportCollisionDAEToolStripMenuItem.Name = "exportCollisionDAEToolStripMenuItem";
+            this.exportCollisionDAEToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
+            this.exportCollisionDAEToolStripMenuItem.Text = "Export Collision DAE";
+            this.exportCollisionDAEToolStripMenuItem.Click += new System.EventHandler(this.exportCollisionDAEToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -80,6 +105,9 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportCollisionOBJToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportPartitionOBJToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem exportCollisionDAEToolStripMenuItem;
     }
 }
 
