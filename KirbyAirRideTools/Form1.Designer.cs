@@ -14,9 +14,8 @@
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
+
             base.Dispose(disposing);
         }
 
@@ -63,14 +62,14 @@
             this.exportCollisionOBJToolStripMenuItem.Name = "exportCollisionOBJToolStripMenuItem";
             this.exportCollisionOBJToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.exportCollisionOBJToolStripMenuItem.Text = "Export Collision OBJ";
-            this.exportCollisionOBJToolStripMenuItem.Click += new System.EventHandler(this.exportCollisionOBJToolStripMenuItem_Click);
+            this.exportCollisionOBJToolStripMenuItem.Click += new System.EventHandler(this.ExportCollisionOBJToolStripMenuItem_Click);
             // 
             // exportPartitionOBJToolStripMenuItem
             // 
             this.exportPartitionOBJToolStripMenuItem.Name = "exportPartitionOBJToolStripMenuItem";
             this.exportPartitionOBJToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.exportPartitionOBJToolStripMenuItem.Text = "Export Partition OBJ";
-            this.exportPartitionOBJToolStripMenuItem.Click += new System.EventHandler(this.exportPartitionOBJToolStripMenuItem_Click);
+            this.exportPartitionOBJToolStripMenuItem.Click += new System.EventHandler(this.ExportPartitionOBJToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -82,7 +81,7 @@
             this.exportCollisionDAEToolStripMenuItem.Name = "exportCollisionDAEToolStripMenuItem";
             this.exportCollisionDAEToolStripMenuItem.Size = new System.Drawing.Size(181, 22);
             this.exportCollisionDAEToolStripMenuItem.Text = "Export Collision DAE";
-            this.exportCollisionDAEToolStripMenuItem.Click += new System.EventHandler(this.exportCollisionDAEToolStripMenuItem_Click);
+            this.exportCollisionDAEToolStripMenuItem.Click += new System.EventHandler(this.ExportCollisionDAEToolStripMenuItem_Click);
             // 
             // Form1
             // 

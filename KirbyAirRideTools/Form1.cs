@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -19,82 +12,88 @@ namespace KirbyAirRideTools
             InitializeComponent();
         }
 
-        private void exportCollisionOBJToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExportCollisionOBJToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*";
-            ofd.Title = "Load DAT File...";
-            ofd.Multiselect = false;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*",
+                Title = "Load DAT File...",
+                Multiselect = false
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "Wavefront OBJ (*.obj)|*.obj|All files|*.*";
-                sfd.Title = "Save as OBJ File...";
+                SaveFileDialog sfd = new SaveFileDialog
+                {
+                    Filter = "Wavefront OBJ (*.obj)|*.obj|All files|*.*",
+                    Title = "Save as OBJ File..."
+                };
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     StreamWriter OBJfile = new StreamWriter(sfd.OpenFile());
                     BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
-                    Export.initOBJexport(OBJfile);
-                    if ((Export.exportCollisionOBJ(OBJfile, DATfile) | Export.exportPathOBJ(OBJfile, DATfile)) == 0)
-                    {
+                    Export.InitOBJexport(OBJfile);
+                    if ((Export.ExportCollisionOBJ(OBJfile, DATfile) | Export.ExportPathOBJ(OBJfile, DATfile)) == 0)
                         MessageBox.Show("Success");
-                    }
                     else
-                    {
                         MessageBox.Show("Error");
-                    }
+
                     OBJfile.Close();
                     DATfile.Close();
                 }
             }
         }
 
-        private void exportPartitionOBJToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExportPartitionOBJToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*";
-            ofd.Title = "Load DAT File...";
-            ofd.Multiselect = false;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*",
+                Title = "Load DAT File...",
+                Multiselect = false
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "Wavefront OBJ (*.obj)|*.obj|All files|*.*";
-                sfd.Title = "Save as OBJ File...";
+                SaveFileDialog sfd = new SaveFileDialog
+                {
+                    Filter = "Wavefront OBJ (*.obj)|*.obj|All files|*.*",
+                    Title = "Save as OBJ File..."
+                };
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
                     StreamWriter OBJfile = new StreamWriter(sfd.OpenFile());
                     BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
-                    Export.initOBJexport(OBJfile);
-                    if (Export.exportPartitionOBJ(OBJfile, DATfile) == 0)
-                    {
+                    Export.InitOBJexport(OBJfile);
+                    if (Export.ExportPartitionOBJ(OBJfile, DATfile) == 0)
                         MessageBox.Show("Success");
-                    }
                     else
-                    {
                         MessageBox.Show("Error");
-                    }
+
                     OBJfile.Close();
                     DATfile.Close();
                 }
             }
         }
 
-        private void exportCollisionDAEToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExportCollisionDAEToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*";
-            ofd.Title = "Load DAT File...";
-            ofd.Multiselect = false;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*",
+                Title = "Load DAT File...",
+                Multiselect = false
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "Collada DAE (*.dae)|*.dae|All files|*.*";
-                sfd.Title = "Save as DAE File...";
+                SaveFileDialog sfd = new SaveFileDialog
+                {
+                    Filter = "Collada DAE (*.dae)|*.dae|All files|*.*",
+                    Title = "Save as DAE File..."
+                };
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
@@ -106,14 +105,11 @@ namespace KirbyAirRideTools
 
                     XmlWriter DAEfile = XmlWriter.Create(sfd.OpenFile(), xmlWriterSettings);
                     BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
-                    if ((Export.DAEexport(DAEfile, DATfile)) == 0)
-                    {
+                    if (Export.DAEexport(DAEfile, DATfile) == 0)
                         MessageBox.Show("Success");
-                    }
                     else
-                    {
                         MessageBox.Show("Error");
-                    }
+
                     DATfile.Close();
                 }
             }

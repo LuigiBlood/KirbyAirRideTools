@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.IO;
 using System.Xml;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Globalization;
 using System.Xml.Linq;
 
@@ -15,34 +12,31 @@ namespace KirbyAirRideTools
     {
         public static long OBJvtx_i;
 
-        public static void initOBJexport(TextWriter fileOut)
+        public static void InitOBJexport(TextWriter fileOut)
         {
             OBJvtx_i = 0;
 
             fileOut.WriteLine("#\n# Converted with KirbyAirRideTools\n#");
         }
 
-        public static int exportCollisionOBJ(TextWriter fileOut, BinaryReader fileIn)
+        public static int ExportCollisionOBJ(TextWriter fileOut, BinaryReader fileIn)
         {
-            long offset = ParseDAT.getOffsetFromNameRegex(fileIn, new Regex("^grData"));
+            long offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (offset == -1)
-            {
-                //Error
-                return -1;
-            }
+                return -1;//Error
 
-            UInt32 hdrsize = 0x20;
+            uint hdrsize = 0x20;
             fileIn.BaseStream.Seek(offset + 0x18, SeekOrigin.Begin);
 
             long CollisionOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
             fileIn.BaseStream.Seek(CollisionOffset, SeekOrigin.Begin);
 
             long VtxOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             long TriOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 TriNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint TriNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             long MdlOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
             //Vertex List
             List<float> VtxXList = new List<float>();
@@ -58,9 +52,9 @@ namespace KirbyAirRideTools
             }
 
             //Triangle List
-            List<UInt32> Tri1List = new List<UInt32>();
-            List<UInt32> Tri2List = new List<UInt32>();
-            List<UInt32> Tri3List = new List<UInt32>();
+            List<uint> Tri1List = new List<uint>();
+            List<uint> Tri2List = new List<uint>();
+            List<uint> Tri3List = new List<uint>();
 
             fileIn.BaseStream.Seek(TriOffset, SeekOrigin.Begin);
             for (int i = 0; i < TriNum; i++)
@@ -88,10 +82,10 @@ namespace KirbyAirRideTools
                 int Unk0 = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0); //?
                 int VtxIDMin = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
                 int VtxIDSize = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 TriIDMin = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 TriIDSize = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 Unk1 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 Unk2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint TriIDMin = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint TriIDSize = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint Unk1 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint Unk2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
                 //Managing Models
                 fileOut.WriteLine("\n# Model Data " + i + " / Bone " + Unk0 + " / Vtx " + VtxIDMin + "-" + VtxIDSize + " / Tri " + TriIDMin + "-" + TriIDSize + " / Unk1 " + Unk1 + " / Unk2 " + Unk2);
@@ -102,7 +96,7 @@ namespace KirbyAirRideTools
                     fileOut.WriteLine("v " + VtxXList[j].ToString("F6") + " " + VtxYList[j].ToString("F6") + " " + VtxZList[j].ToString("F6"));
                 }
 
-                for (UInt32 j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
+                for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
                 {
                     //fileOut.WriteLine("f " + (Tri1List[(int)j] + OBJvtx_i + 1) + "// " + (Tri2List[(int)j] + OBJvtx_i + 1) + "// " + (Tri3List[(int)j] + OBJvtx_i + 1) + "//");
                     fileOut.WriteLine("f " + (Tri1List[(int)j] - VtxIDMin - VtxIDSize) + "// " + (Tri2List[(int)j] - VtxIDMin - VtxIDSize) + "// " + (Tri3List[(int)j] - VtxIDMin - VtxIDSize) + "//");
@@ -114,16 +108,13 @@ namespace KirbyAirRideTools
             return 0;
         }
 
-        public static int exportPathOBJ(TextWriter fileOut, BinaryReader fileIn)
+        public static int ExportPathOBJ(TextWriter fileOut, BinaryReader fileIn)
         {
-            long offset = ParseDAT.getOffsetFromNameRegex(fileIn, new Regex("^grData"));
+            long offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (offset == -1)
-            {
-                //Error
-                return -1;
-            }
+                return -1;//Error
 
-            UInt32 hdrsize = 0x20;
+            uint hdrsize = 0x20;
             fileIn.BaseStream.Seek(offset + 0x18, SeekOrigin.Begin);
 
             //Path Data
@@ -144,13 +135,13 @@ namespace KirbyAirRideTools
             fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
 
             MainPathOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 MainPathNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
+            uint MainPathNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
 
             fileIn.BaseStream.Seek(MainPathOffset, SeekOrigin.Begin);
             long MainPathOffset2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
             fileIn.BaseStream.Seek(MainPathOffset2, SeekOrigin.Begin);
 
-            UInt32 VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             fileIn.ReadUInt32();
             fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
             List<float> VtxXList = new List<float>();
@@ -166,32 +157,26 @@ namespace KirbyAirRideTools
             fileOut.WriteLine("o MainPathData");
 
             for (int i = 0; i < VtxNum; i++)
-            {
                 fileOut.WriteLine("v " + VtxXList[i] + " " + VtxYList[i] + " " + VtxZList[i]);
-            }
 
             for (int i = 0; i < (VtxNum - 1); i++)
-            {
                 fileOut.WriteLine("l " + (OBJvtx_i + i + 1) + "/ " + (OBJvtx_i + i + 2) + "/");
-            }
+
             OBJvtx_i += (int)VtxNum;
 
             return 0;
         }
 
-        public static int exportPartitionOBJ(TextWriter fileOut, BinaryReader fileIn)
+        public static int ExportPartitionOBJ(TextWriter fileOut, BinaryReader fileIn)
         {
-            long offset = ParseDAT.getOffsetFromNameRegex(fileIn, new Regex("^grData"));
+            long offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (offset == -1)
-            {
-                //Error
-                return -1;
-            }
+                return -1;//Error
 
-            UInt32 hdrsize = 0x20;
+            uint hdrsize = 0x20;
             fileIn.BaseStream.Seek(offset + 0x48, SeekOrigin.Begin);
-            fileIn.BaseStream.Seek((BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize), SeekOrigin.Begin);
-            fileIn.BaseStream.Seek((BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize), SeekOrigin.Begin);
+            fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
+            fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
 
             //Partition Data?
             long PartitionOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
@@ -200,7 +185,7 @@ namespace KirbyAirRideTools
             for (int i = 0; i < PartitionNum; i++)
             {
                 fileIn.BaseStream.Seek(PartitionOffset + (i * 4), SeekOrigin.Begin);
-                fileIn.BaseStream.Seek((BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize), SeekOrigin.Begin);
+                fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
 
                 fileOut.WriteLine("o Partition" + i.ToString("D4"));
 
@@ -244,7 +229,7 @@ namespace KirbyAirRideTools
         }
 
         //DAE
-        public static void initDAEexport(XmlWriter xmlOut)
+        public static void InitDAEexport(XmlWriter xmlOut)
         {
             xmlOut.WriteStartDocument();
 
@@ -283,7 +268,7 @@ namespace KirbyAirRideTools
             xmlOut.WriteEndElement();
         }
 
-        public static void endDAEexport(XmlWriter xmlOut)
+        public static void EndDAEexport(XmlWriter xmlOut)
         {
             xmlOut.WriteEndElement();
             xmlOut.WriteEndDocument();
@@ -292,12 +277,9 @@ namespace KirbyAirRideTools
 
         public static int DAEexport(XmlWriter xmlOut, BinaryReader fileIn)
         {
-            long grData_offset = ParseDAT.getOffsetFromNameRegex(fileIn, new Regex("^grData"));
+            long grData_offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (grData_offset == -1)
-            {
-                //Error
-                return -1;
-            }
+                return -1;//Error
 
             XNamespace XmlColladaNS = @"http://www.collada.org/2005/11/COLLADASchema";
             XElement colladaNode = new XElement(XmlColladaNS + "COLLADA");
@@ -328,7 +310,7 @@ namespace KirbyAirRideTools
             XElement visual_scene = new XElement("visual_scene", new XAttribute("id", "Scene"), new XAttribute("name", "Scene"));
             XElement scene_node = new XElement("scene", new XElement("instance_visual_scene", new XAttribute("url", "#Scene")));
 
-            UInt32 hdrsize = 0x20;
+            uint hdrsize = 0x20;
             //Collision Node
             fileIn.BaseStream.Seek(grData_offset + 0x18, SeekOrigin.Begin);
 
@@ -336,11 +318,11 @@ namespace KirbyAirRideTools
             fileIn.BaseStream.Seek(CollisionOffset, SeekOrigin.Begin);
 
             long VtxOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             long TriOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 TriNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint TriNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             long MdlOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
             //Vertex List
             List<float> VtxXList = new List<float>();
@@ -356,9 +338,9 @@ namespace KirbyAirRideTools
             }
 
             //Triangle List
-            List<UInt32> Tri1List = new List<UInt32>();
-            List<UInt32> Tri2List = new List<UInt32>();
-            List<UInt32> Tri3List = new List<UInt32>();
+            List<uint> Tri1List = new List<uint>();
+            List<uint> Tri2List = new List<uint>();
+            List<uint> Tri3List = new List<uint>();
 
             fileIn.BaseStream.Seek(TriOffset, SeekOrigin.Begin);
             for (int i = 0; i < TriNum; i++)
@@ -377,10 +359,10 @@ namespace KirbyAirRideTools
                 int JointID = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
                 int VtxIDMin = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
                 int VtxIDSize = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 TriIDMin = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 TriIDSize = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 Unk1 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 Unk2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint TriIDMin = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint TriIDSize = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint Unk1 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint Unk2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
                 //--Geometry Data
                 XElement geometry_node = new XElement("geometry",
@@ -397,10 +379,9 @@ namespace KirbyAirRideTools
 
                 string float_array_data = "";
                 for (int j = VtxIDMin; j < (VtxIDMin + VtxIDSize); j++)
-                {
-                    float_array_data += (VtxXList[j].ToString("F6", CultureInfo.InvariantCulture) + " " + VtxYList[j].ToString("F6", CultureInfo.InvariantCulture) + " " + VtxZList[j].ToString("F6", CultureInfo.InvariantCulture) + " ");
-                }
-                float_array_node.Add(new XText((float_array_data)));
+                    float_array_data += VtxXList[j].ToString("F6", CultureInfo.InvariantCulture) + " " + VtxYList[j].ToString("F6", CultureInfo.InvariantCulture) + " " + VtxZList[j].ToString("F6", CultureInfo.InvariantCulture) + " ";
+
+                float_array_node.Add(new XText(float_array_data));
 
                 XElement technique_common_node = new XElement("technique_common",
                     new XElement("accessor",
@@ -443,18 +424,16 @@ namespace KirbyAirRideTools
 
                 XElement vcount_node = new XElement("vcount");
                 string vcount = "";
-                for (UInt32 j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
-                {
+                for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
                     vcount += "3 ";
-                }
+
                 vcount_node.Add(new XText(vcount));
 
                 XElement p_node = new XElement("p");
                 string p = "";
-                for (UInt32 j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
-                {
-                    p += ((Tri1List[(int)j] - VtxIDMin) + " " + (Tri2List[(int)j] - VtxIDMin) + " " + (Tri3List[(int)j] - VtxIDMin) + " ");
-                }
+                for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
+                    p += Tri1List[(int)j] - VtxIDMin + " " + (Tri2List[(int)j] - VtxIDMin) + " " + (Tri3List[(int)j] - VtxIDMin) + " ";
+
                 p_node.Add(new XText(p));
 
                 polylist_node.Add(vcount_node, p_node);

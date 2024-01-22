@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace KirbyAirRideTools
 {
@@ -16,24 +12,24 @@ namespace KirbyAirRideTools
             return b;
         }
 
-        public static UInt16 ReadUInt16BE(this BinaryReader binRdr)
+        public static ushort ReadUInt16BE(this BinaryReader binRdr)
         {
-            return BitConverter.ToUInt16(binRdr.ReadBytesRequired(sizeof(UInt16)).Reverse(), 0);
+            return BitConverter.ToUInt16(binRdr.ReadBytesRequired(sizeof(ushort)).Reverse(), 0);
         }
 
-        public static Int16 ReadInt16BE(this BinaryReader binRdr)
+        public static short ReadInt16BE(this BinaryReader binRdr)
         {
-            return BitConverter.ToInt16(binRdr.ReadBytesRequired(sizeof(Int16)).Reverse(), 0);
+            return BitConverter.ToInt16(binRdr.ReadBytesRequired(sizeof(short)).Reverse(), 0);
         }
 
-        public static UInt32 ReadUInt32BE(this BinaryReader binRdr)
+        public static uint ReadUInt32BE(this BinaryReader binRdr)
         {
-            return BitConverter.ToUInt32(binRdr.ReadBytesRequired(sizeof(UInt32)).Reverse(), 0);
+            return BitConverter.ToUInt32(binRdr.ReadBytesRequired(sizeof(uint)).Reverse(), 0);
         }
 
-        public static Int32 ReadInt32BE(this BinaryReader binRdr)
+        public static int ReadInt32BE(this BinaryReader binRdr)
         {
-            return BitConverter.ToInt32(binRdr.ReadBytesRequired(sizeof(Int32)).Reverse(), 0);
+            return BitConverter.ToInt32(binRdr.ReadBytesRequired(sizeof(int)).Reverse(), 0);
         }
 
         public static byte[] ReadBytesRequired(this BinaryReader binRdr, int byteCount)
