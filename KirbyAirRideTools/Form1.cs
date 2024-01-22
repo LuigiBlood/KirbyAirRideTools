@@ -12,7 +12,7 @@ namespace KirbyAirRideTools
             InitializeComponent();
         }
 
-        private void exportCollisionOBJToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExportCollisionOBJToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*";
@@ -29,8 +29,8 @@ namespace KirbyAirRideTools
                 {
                     StreamWriter OBJfile = new StreamWriter(sfd.OpenFile());
                     BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
-                    Export.initOBJexport(OBJfile);
-                    if ((Export.exportCollisionOBJ(OBJfile, DATfile) | Export.exportPathOBJ(OBJfile, DATfile)) == 0)
+                    Export.InitOBJexport(OBJfile);
+                    if ((Export.ExportCollisionOBJ(OBJfile, DATfile) | Export.ExportPathOBJ(OBJfile, DATfile)) == 0)
                     {
                         MessageBox.Show("Success");
                     }
@@ -44,7 +44,7 @@ namespace KirbyAirRideTools
             }
         }
 
-        private void exportPartitionOBJToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExportPartitionOBJToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*";
@@ -61,8 +61,8 @@ namespace KirbyAirRideTools
                 {
                     StreamWriter OBJfile = new StreamWriter(sfd.OpenFile());
                     BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
-                    Export.initOBJexport(OBJfile);
-                    if (Export.exportPartitionOBJ(OBJfile, DATfile) == 0)
+                    Export.InitOBJexport(OBJfile);
+                    if (Export.ExportPartitionOBJ(OBJfile, DATfile) == 0)
                     {
                         MessageBox.Show("Success");
                     }
@@ -76,7 +76,7 @@ namespace KirbyAirRideTools
             }
         }
 
-        private void exportCollisionDAEToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExportCollisionDAEToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*";

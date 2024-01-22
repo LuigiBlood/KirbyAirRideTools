@@ -7,7 +7,7 @@ namespace KirbyAirRideTools
 {
     class ParseDAT
     {
-        public static long getOffsetFromNameRegex(BinaryReader dat, Regex regex)
+        public static long GetOffsetFromNameRegex(BinaryReader dat, Regex regex)
         {
             //Keep Offset
             long saveOffset = dat.BaseStream.Position;

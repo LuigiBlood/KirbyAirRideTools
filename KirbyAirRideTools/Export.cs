@@ -12,16 +12,16 @@ namespace KirbyAirRideTools
     {
         public static long OBJvtx_i;
 
-        public static void initOBJexport(TextWriter fileOut)
+        public static void InitOBJexport(TextWriter fileOut)
         {
             OBJvtx_i = 0;
 
             fileOut.WriteLine("#\n# Converted with KirbyAirRideTools\n#");
         }
 
-        public static int exportCollisionOBJ(TextWriter fileOut, BinaryReader fileIn)
+        public static int ExportCollisionOBJ(TextWriter fileOut, BinaryReader fileIn)
         {
-            long offset = ParseDAT.getOffsetFromNameRegex(fileIn, new Regex("^grData"));
+            long offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (offset == -1)
             {
                 //Error
@@ -111,9 +111,9 @@ namespace KirbyAirRideTools
             return 0;
         }
 
-        public static int exportPathOBJ(TextWriter fileOut, BinaryReader fileIn)
+        public static int ExportPathOBJ(TextWriter fileOut, BinaryReader fileIn)
         {
-            long offset = ParseDAT.getOffsetFromNameRegex(fileIn, new Regex("^grData"));
+            long offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (offset == -1)
             {
                 //Error
@@ -176,9 +176,9 @@ namespace KirbyAirRideTools
             return 0;
         }
 
-        public static int exportPartitionOBJ(TextWriter fileOut, BinaryReader fileIn)
+        public static int ExportPartitionOBJ(TextWriter fileOut, BinaryReader fileIn)
         {
-            long offset = ParseDAT.getOffsetFromNameRegex(fileIn, new Regex("^grData"));
+            long offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (offset == -1)
             {
                 //Error
@@ -241,7 +241,7 @@ namespace KirbyAirRideTools
         }
 
         //DAE
-        public static void initDAEexport(XmlWriter xmlOut)
+        public static void InitDAEexport(XmlWriter xmlOut)
         {
             xmlOut.WriteStartDocument();
 
@@ -280,7 +280,7 @@ namespace KirbyAirRideTools
             xmlOut.WriteEndElement();
         }
 
-        public static void endDAEexport(XmlWriter xmlOut)
+        public static void EndDAEexport(XmlWriter xmlOut)
         {
             xmlOut.WriteEndElement();
             xmlOut.WriteEndDocument();
@@ -289,7 +289,7 @@ namespace KirbyAirRideTools
 
         public static int DAEexport(XmlWriter xmlOut, BinaryReader fileIn)
         {
-            long grData_offset = ParseDAT.getOffsetFromNameRegex(fileIn, new Regex("^grData"));
+            long grData_offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (grData_offset == -1)
             {
                 //Error
