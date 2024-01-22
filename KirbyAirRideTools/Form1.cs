@@ -111,7 +111,7 @@ namespace KirbyAirRideTools
 
                     XmlWriter DAEfile = XmlWriter.Create(sfd.OpenFile(), xmlWriterSettings);
                     BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
-                    if ((Export.DAEexport(DAEfile, DATfile)) == 0)
+                    if (Export.DAEexport(DAEfile, DATfile) == 0)
                     {
                         MessageBox.Show("Success");
                     }

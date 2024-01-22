@@ -187,8 +187,8 @@ namespace KirbyAirRideTools
 
             uint hdrsize = 0x20;
             fileIn.BaseStream.Seek(offset + 0x48, SeekOrigin.Begin);
-            fileIn.BaseStream.Seek((BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize), SeekOrigin.Begin);
-            fileIn.BaseStream.Seek((BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize), SeekOrigin.Begin);
+            fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
+            fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
 
             //Partition Data?
             long PartitionOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
@@ -197,7 +197,7 @@ namespace KirbyAirRideTools
             for (int i = 0; i < PartitionNum; i++)
             {
                 fileIn.BaseStream.Seek(PartitionOffset + (i * 4), SeekOrigin.Begin);
-                fileIn.BaseStream.Seek((BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize), SeekOrigin.Begin);
+                fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
 
                 fileOut.WriteLine("o Partition" + i.ToString("D4"));
 
@@ -395,9 +395,9 @@ namespace KirbyAirRideTools
                 string float_array_data = "";
                 for (int j = VtxIDMin; j < (VtxIDMin + VtxIDSize); j++)
                 {
-                    float_array_data += (VtxXList[j].ToString("F6", CultureInfo.InvariantCulture) + " " + VtxYList[j].ToString("F6", CultureInfo.InvariantCulture) + " " + VtxZList[j].ToString("F6", CultureInfo.InvariantCulture) + " ");
+                    float_array_data += VtxXList[j].ToString("F6", CultureInfo.InvariantCulture) + " " + VtxYList[j].ToString("F6", CultureInfo.InvariantCulture) + " " + VtxZList[j].ToString("F6", CultureInfo.InvariantCulture) + " ";
                 }
-                float_array_node.Add(new XText((float_array_data)));
+                float_array_node.Add(new XText(float_array_data));
 
                 XElement technique_common_node = new XElement("technique_common",
                     new XElement("accessor",
@@ -450,7 +450,7 @@ namespace KirbyAirRideTools
                 string p = "";
                 for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
                 {
-                    p += ((Tri1List[(int)j] - VtxIDMin) + " " + (Tri2List[(int)j] - VtxIDMin) + " " + (Tri3List[(int)j] - VtxIDMin) + " ");
+                    p += Tri1List[(int)j] - VtxIDMin + " " + (Tri2List[(int)j] - VtxIDMin) + " " + (Tri3List[(int)j] - VtxIDMin) + " ";
                 }
                 p_node.Add(new XText(p));
 

@@ -38,7 +38,7 @@ namespace KirbyAirRideTools
                 if (regex.IsMatch(name))
                 {
                     dat.BaseStream.Seek(saveOffset, SeekOrigin.Begin);
-                    return (offset + hdrsize);
+                    return offset + hdrsize;
                 }
 
                 dat.BaseStream.Seek(tempOffset + 8, SeekOrigin.Begin);
