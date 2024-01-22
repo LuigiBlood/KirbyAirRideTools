@@ -28,18 +28,18 @@ namespace KirbyAirRideTools
                 return -1;
             }
 
-            UInt32 hdrsize = 0x20;
+            uint hdrsize = 0x20;
             fileIn.BaseStream.Seek(offset + 0x18, SeekOrigin.Begin);
 
             long CollisionOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
             fileIn.BaseStream.Seek(CollisionOffset, SeekOrigin.Begin);
 
             long VtxOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             long TriOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 TriNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint TriNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             long MdlOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
             //Vertex List
             List<float> VtxXList = new List<float>();
@@ -55,9 +55,9 @@ namespace KirbyAirRideTools
             }
 
             //Triangle List
-            List<UInt32> Tri1List = new List<UInt32>();
-            List<UInt32> Tri2List = new List<UInt32>();
-            List<UInt32> Tri3List = new List<UInt32>();
+            List<uint> Tri1List = new List<uint>();
+            List<uint> Tri2List = new List<uint>();
+            List<uint> Tri3List = new List<uint>();
 
             fileIn.BaseStream.Seek(TriOffset, SeekOrigin.Begin);
             for (int i = 0; i < TriNum; i++)
@@ -85,10 +85,10 @@ namespace KirbyAirRideTools
                 int Unk0 = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0); //?
                 int VtxIDMin = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
                 int VtxIDSize = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 TriIDMin = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 TriIDSize = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 Unk1 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 Unk2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint TriIDMin = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint TriIDSize = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint Unk1 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint Unk2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
                 //Managing Models
                 fileOut.WriteLine("\n# Model Data " + i + " / Bone " + Unk0 + " / Vtx " + VtxIDMin + "-" + VtxIDSize + " / Tri " + TriIDMin + "-" + TriIDSize + " / Unk1 " + Unk1 + " / Unk2 " + Unk2);
@@ -99,7 +99,7 @@ namespace KirbyAirRideTools
                     fileOut.WriteLine("v " + VtxXList[j].ToString("F6") + " " + VtxYList[j].ToString("F6") + " " + VtxZList[j].ToString("F6"));
                 }
 
-                for (UInt32 j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
+                for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
                 {
                     //fileOut.WriteLine("f " + (Tri1List[(int)j] + OBJvtx_i + 1) + "// " + (Tri2List[(int)j] + OBJvtx_i + 1) + "// " + (Tri3List[(int)j] + OBJvtx_i + 1) + "//");
                     fileOut.WriteLine("f " + (Tri1List[(int)j] - VtxIDMin - VtxIDSize) + "// " + (Tri2List[(int)j] - VtxIDMin - VtxIDSize) + "// " + (Tri3List[(int)j] - VtxIDMin - VtxIDSize) + "//");
@@ -120,7 +120,7 @@ namespace KirbyAirRideTools
                 return -1;
             }
 
-            UInt32 hdrsize = 0x20;
+            uint hdrsize = 0x20;
             fileIn.BaseStream.Seek(offset + 0x18, SeekOrigin.Begin);
 
             //Path Data
@@ -141,13 +141,13 @@ namespace KirbyAirRideTools
             fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
 
             MainPathOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 MainPathNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
+            uint MainPathNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
 
             fileIn.BaseStream.Seek(MainPathOffset, SeekOrigin.Begin);
             long MainPathOffset2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
             fileIn.BaseStream.Seek(MainPathOffset2, SeekOrigin.Begin);
 
-            UInt32 VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             fileIn.ReadUInt32();
             fileIn.BaseStream.Seek(BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize, SeekOrigin.Begin);
             List<float> VtxXList = new List<float>();
@@ -185,7 +185,7 @@ namespace KirbyAirRideTools
                 return -1;
             }
 
-            UInt32 hdrsize = 0x20;
+            uint hdrsize = 0x20;
             fileIn.BaseStream.Seek(offset + 0x48, SeekOrigin.Begin);
             fileIn.BaseStream.Seek((BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize), SeekOrigin.Begin);
             fileIn.BaseStream.Seek((BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize), SeekOrigin.Begin);
@@ -325,7 +325,7 @@ namespace KirbyAirRideTools
             XElement visual_scene = new XElement("visual_scene", new XAttribute("id", "Scene"), new XAttribute("name", "Scene"));
             XElement scene_node = new XElement("scene", new XElement("instance_visual_scene", new XAttribute("url", "#Scene")));
 
-            UInt32 hdrsize = 0x20;
+            uint hdrsize = 0x20;
             //Collision Node
             fileIn.BaseStream.Seek(grData_offset + 0x18, SeekOrigin.Begin);
 
@@ -333,11 +333,11 @@ namespace KirbyAirRideTools
             fileIn.BaseStream.Seek(CollisionOffset, SeekOrigin.Begin);
 
             long VtxOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint VtxNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             long TriOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 TriNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint TriNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
             long MdlOffset = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0) + hdrsize;
-            UInt32 MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+            uint MdlNum = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
             //Vertex List
             List<float> VtxXList = new List<float>();
@@ -353,9 +353,9 @@ namespace KirbyAirRideTools
             }
 
             //Triangle List
-            List<UInt32> Tri1List = new List<UInt32>();
-            List<UInt32> Tri2List = new List<UInt32>();
-            List<UInt32> Tri3List = new List<UInt32>();
+            List<uint> Tri1List = new List<uint>();
+            List<uint> Tri2List = new List<uint>();
+            List<uint> Tri3List = new List<uint>();
 
             fileIn.BaseStream.Seek(TriOffset, SeekOrigin.Begin);
             for (int i = 0; i < TriNum; i++)
@@ -374,10 +374,10 @@ namespace KirbyAirRideTools
                 int JointID = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
                 int VtxIDMin = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
                 int VtxIDSize = BitConverter.ToInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 TriIDMin = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 TriIDSize = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 Unk1 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
-                UInt32 Unk2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint TriIDMin = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint TriIDSize = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint Unk1 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
+                uint Unk2 = BitConverter.ToUInt32(fileIn.ReadBytes(4).Reverse(), 0);
 
                 //--Geometry Data
                 XElement geometry_node = new XElement("geometry",
@@ -440,7 +440,7 @@ namespace KirbyAirRideTools
 
                 XElement vcount_node = new XElement("vcount");
                 string vcount = "";
-                for (UInt32 j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
+                for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
                 {
                     vcount += "3 ";
                 }
@@ -448,7 +448,7 @@ namespace KirbyAirRideTools
 
                 XElement p_node = new XElement("p");
                 string p = "";
-                for (UInt32 j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
+                for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
                 {
                     p += ((Tri1List[(int)j] - VtxIDMin) + " " + (Tri2List[(int)j] - VtxIDMin) + " " + (Tri3List[(int)j] - VtxIDMin) + " ");
                 }

@@ -14,11 +14,11 @@ namespace KirbyAirRideTools
 
             //Load Header data
             dat.BaseStream.Seek(4, SeekOrigin.Begin);
-            UInt32 hdrsize = 0x20;
-            UInt32 bodysize = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
-            UInt32 reloc_num = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
-            UInt32 rootnode_num = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
-            UInt32 xrefnode_num = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
+            uint hdrsize = 0x20;
+            uint bodysize = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
+            uint reloc_num = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
+            uint rootnode_num = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
+            uint xrefnode_num = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
 
             //Read data
             dat.BaseStream.Seek(hdrsize + bodysize + (reloc_num * 4), SeekOrigin.Begin);
@@ -26,8 +26,8 @@ namespace KirbyAirRideTools
             for (int i = 0; i < (rootnode_num + xrefnode_num); i++)
             {
                 long tempOffset = dat.BaseStream.Position;
-                UInt32 offset = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
-                UInt32 stringoff = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
+                uint offset = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
+                uint stringoff = BitConverter.ToUInt32(dat.ReadBytes(4).Reverse(), 0);
                 dat.BaseStream.Seek(hdrsize + bodysize + (reloc_num * 4) + ((rootnode_num + xrefnode_num) * 8) + stringoff, SeekOrigin.Begin);
                 int j = 0;
                 for (; dat.ReadByte() != 0; j++);
