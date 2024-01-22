@@ -14,16 +14,20 @@ namespace KirbyAirRideTools
 
         private void ExportCollisionOBJToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*";
-            ofd.Title = "Load DAT File...";
-            ofd.Multiselect = false;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*",
+                Title = "Load DAT File...",
+                Multiselect = false
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "Wavefront OBJ (*.obj)|*.obj|All files|*.*";
-                sfd.Title = "Save as OBJ File...";
+                SaveFileDialog sfd = new SaveFileDialog
+                {
+                    Filter = "Wavefront OBJ (*.obj)|*.obj|All files|*.*",
+                    Title = "Save as OBJ File..."
+                };
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
@@ -46,16 +50,20 @@ namespace KirbyAirRideTools
 
         private void ExportPartitionOBJToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*";
-            ofd.Title = "Load DAT File...";
-            ofd.Multiselect = false;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*",
+                Title = "Load DAT File...",
+                Multiselect = false
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "Wavefront OBJ (*.obj)|*.obj|All files|*.*";
-                sfd.Title = "Save as OBJ File...";
+                SaveFileDialog sfd = new SaveFileDialog
+                {
+                    Filter = "Wavefront OBJ (*.obj)|*.obj|All files|*.*",
+                    Title = "Save as OBJ File..."
+                };
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
@@ -78,16 +86,20 @@ namespace KirbyAirRideTools
 
         private void ExportCollisionDAEToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*";
-            ofd.Title = "Load DAT File...";
-            ofd.Multiselect = false;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Filter = "HSD DAT File (*.dat)|*.dat|All files|*.*",
+                Title = "Load DAT File...",
+                Multiselect = false
+            };
 
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                SaveFileDialog sfd = new SaveFileDialog();
-                sfd.Filter = "Collada DAE (*.dae)|*.dae|All files|*.*";
-                sfd.Title = "Save as DAE File...";
+                SaveFileDialog sfd = new SaveFileDialog
+                {
+                    Filter = "Collada DAE (*.dae)|*.dae|All files|*.*",
+                    Title = "Save as DAE File..."
+                };
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
