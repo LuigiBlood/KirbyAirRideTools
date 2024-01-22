@@ -23,10 +23,7 @@ namespace KirbyAirRideTools
         {
             long offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (offset == -1)
-            {
-                //Error
-                return -1;
-            }
+                return -1;//Error
 
             uint hdrsize = 0x20;
             fileIn.BaseStream.Seek(offset + 0x18, SeekOrigin.Begin);
@@ -115,10 +112,7 @@ namespace KirbyAirRideTools
         {
             long offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (offset == -1)
-            {
-                //Error
-                return -1;
-            }
+                return -1;//Error
 
             uint hdrsize = 0x20;
             fileIn.BaseStream.Seek(offset + 0x18, SeekOrigin.Begin);
@@ -163,14 +157,11 @@ namespace KirbyAirRideTools
             fileOut.WriteLine("o MainPathData");
 
             for (int i = 0; i < VtxNum; i++)
-            {
                 fileOut.WriteLine("v " + VtxXList[i] + " " + VtxYList[i] + " " + VtxZList[i]);
-            }
 
             for (int i = 0; i < (VtxNum - 1); i++)
-            {
                 fileOut.WriteLine("l " + (OBJvtx_i + i + 1) + "/ " + (OBJvtx_i + i + 2) + "/");
-            }
+
             OBJvtx_i += (int)VtxNum;
 
             return 0;
@@ -180,10 +171,7 @@ namespace KirbyAirRideTools
         {
             long offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (offset == -1)
-            {
-                //Error
-                return -1;
-            }
+                return -1;//Error
 
             uint hdrsize = 0x20;
             fileIn.BaseStream.Seek(offset + 0x48, SeekOrigin.Begin);
@@ -291,10 +279,7 @@ namespace KirbyAirRideTools
         {
             long grData_offset = ParseDAT.GetOffsetFromNameRegex(fileIn, new Regex("^grData"));
             if (grData_offset == -1)
-            {
-                //Error
-                return -1;
-            }
+                return -1;//Error
 
             XNamespace XmlColladaNS = @"http://www.collada.org/2005/11/COLLADASchema";
             XElement colladaNode = new XElement(XmlColladaNS + "COLLADA");
@@ -394,9 +379,8 @@ namespace KirbyAirRideTools
 
                 string float_array_data = "";
                 for (int j = VtxIDMin; j < (VtxIDMin + VtxIDSize); j++)
-                {
                     float_array_data += VtxXList[j].ToString("F6", CultureInfo.InvariantCulture) + " " + VtxYList[j].ToString("F6", CultureInfo.InvariantCulture) + " " + VtxZList[j].ToString("F6", CultureInfo.InvariantCulture) + " ";
-                }
+
                 float_array_node.Add(new XText(float_array_data));
 
                 XElement technique_common_node = new XElement("technique_common",
@@ -441,17 +425,15 @@ namespace KirbyAirRideTools
                 XElement vcount_node = new XElement("vcount");
                 string vcount = "";
                 for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
-                {
                     vcount += "3 ";
-                }
+
                 vcount_node.Add(new XText(vcount));
 
                 XElement p_node = new XElement("p");
                 string p = "";
                 for (uint j = TriIDMin; j < (TriIDMin + TriIDSize); j++)
-                {
                     p += Tri1List[(int)j] - VtxIDMin + " " + (Tri2List[(int)j] - VtxIDMin) + " " + (Tri3List[(int)j] - VtxIDMin) + " ";
-                }
+
                 p_node.Add(new XText(p));
 
                 polylist_node.Add(vcount_node, p_node);

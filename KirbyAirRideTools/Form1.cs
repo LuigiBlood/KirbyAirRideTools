@@ -35,13 +35,10 @@ namespace KirbyAirRideTools
                     BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
                     Export.InitOBJexport(OBJfile);
                     if ((Export.ExportCollisionOBJ(OBJfile, DATfile) | Export.ExportPathOBJ(OBJfile, DATfile)) == 0)
-                    {
                         MessageBox.Show("Success");
-                    }
                     else
-                    {
                         MessageBox.Show("Error");
-                    }
+
                     OBJfile.Close();
                     DATfile.Close();
                 }
@@ -71,13 +68,10 @@ namespace KirbyAirRideTools
                     BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
                     Export.InitOBJexport(OBJfile);
                     if (Export.ExportPartitionOBJ(OBJfile, DATfile) == 0)
-                    {
                         MessageBox.Show("Success");
-                    }
                     else
-                    {
                         MessageBox.Show("Error");
-                    }
+
                     OBJfile.Close();
                     DATfile.Close();
                 }
@@ -112,13 +106,10 @@ namespace KirbyAirRideTools
                     XmlWriter DAEfile = XmlWriter.Create(sfd.OpenFile(), xmlWriterSettings);
                     BinaryReader DATfile = new BinaryReader(ofd.OpenFile());
                     if (Export.DAEexport(DAEfile, DATfile) == 0)
-                    {
                         MessageBox.Show("Success");
-                    }
                     else
-                    {
                         MessageBox.Show("Error");
-                    }
+
                     DATfile.Close();
                 }
             }
